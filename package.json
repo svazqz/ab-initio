@@ -1,0 +1,48 @@
+{
+  "name": "ab-initio",
+  "private": false,
+  "description": "A simple ui library for React",
+  "version": "1.0.1-beta",
+  "exports": {
+    "ab-initio": {
+      "import": "./dist/ab-initio.es.js",
+      "require": "./dist/ab-initio.umd.js",
+      "types": "./dist/ab-initio.d.ts"
+    },
+    "server": {
+      "import": "./dist/server.es.js",
+      "require": "./dist/server.umd.js",
+      "types": "./dist/server.d.ts"
+    },
+    "client": {
+      "import": "./dist/client.es.js",
+      "require": "./dist/client.umd.js",
+      "types": "./dist/client.d.ts"
+    }
+  },
+  "files": [
+    "/dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && LIB_NAME=ab-initio vite build && LIB_NAME=server vite build && LIB_NAME=client vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "5.6.2",
+    "vite": "5.4.10"
+  },
+  "dependencies": {
+    "@asteasolutions/zod-to-openapi": "7.2.0",
+    "@supabase/ssr": "0.5.1",
+    "@tanstack/react-query": "5.59.20",
+    "@types/node": "22.9.0",
+    "next": "14.0.3",
+    "vite-plugin-dts": "4.3.0",
+    "zod": "3.23.8"
+  }
+}
