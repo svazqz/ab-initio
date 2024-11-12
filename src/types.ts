@@ -51,7 +51,7 @@ export type ServerFnDefinition<
     request: NextBaseRequest<URLParams, QueryParams>,
     { params }: { params: z.infer<URLParams> },
   ) => NextResponse<Response> | Promise<NextResponse<Response>>;
-  auth?: boolean;
+  auth?: () => Promise<boolean>;
   skipOutputValidation?: boolean;
 };
 

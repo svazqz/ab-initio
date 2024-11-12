@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { z, ZodType } from 'zod';
 import { HandlerFn, NextBaseRequest, ServerFnDefinition } from './types';
 import { validateQueryParams, validatePayload } from './utils';
-import { useBackendClientServer } from './useBackendClientServer';
 
 export const apiWrapper = <
   URLParams extends ZodType,
@@ -21,15 +20,18 @@ export const apiWrapper = <
     const urlParams: URLParams | undefined = params;
     let parsedPayload: Body | undefined = undefined;
 
-    if (def.auth) {
-      const supabaseClient = await useBackendClientServer();
-      const user = await supabaseClient.auth.getUser();
-      const userId = request.headers.get('x-user-id');
-      if (user?.data?.user?.id !== userId) {
-        return new NextResponse(JSON.stringify({}), {
-          status: 403,
-          headers: { 'content-type': 'application/json' },
-        });
+    if (def.auth && (typeof def.auth) === 'function') {
+      const isAuthenticated = await def.auth();
+      if (!isAuthenticated) {
+        return new NextResponse(
+          JSON.stringify({
+            error: 'Access denied',
+          }),
+          {
+            status: 403,
+            headers: { 'content-type': 'application/json' },
+          },
+        );
       }
     }
 
