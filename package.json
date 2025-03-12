@@ -2,7 +2,7 @@
   "name": "ab-initio",
   "private": false,
   "description": "A simple way to keep in sync Next api definitions and client types using zod",
-  "version": "1.2.1",
+  "version": "1.2.1-deprecated",
   "exports": {
     "./dist/ab-initio": {
       "import": "./dist/ab-initio.es.js",
